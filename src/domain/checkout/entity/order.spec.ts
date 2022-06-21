@@ -14,7 +14,7 @@ describe("Order unit tests", () => {
     }).toThrowError("CustomerId is required");
   });
 
-  it("should throw error when customerId is empty", () => {
+  it("should throw error when items array is empty", () => {
     expect(() => {
       let order = new Order("123", "123", []);
     }).toThrowError("Items are required");
@@ -40,4 +40,22 @@ describe("Order unit tests", () => {
       const order = new Order("o1", "c1", [item]);
     }).toThrowError("Quantity must be greater than 0");
   });
+
+  it("should change the customerId", () => {
+    const item = new OrderItem("i1", "Item 1", 100, "p1", 2);
+    const order = new Order("o1", "c1", [item]);
+
+    order.changeCustomerId("c2");
+
+    expect(order.customerId).toBe("c2");
+  });
+
+  it("should throw error when try to change the customerId to empty", () => {
+    const item = new OrderItem("i1", "Item 1", 100, "p1", 2);
+    const order = new Order("o1", "c1", [item]);
+    expect(() => {
+      order.changeCustomerId("");
+    }).toThrowError("CustomerId is required");
+  });
+
 });
