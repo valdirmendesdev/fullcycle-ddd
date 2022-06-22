@@ -233,12 +233,35 @@ describe("Order repository test", () => {
     await orderRepository.create(order2);
 
     const orders = await orderRepository.findAll();
-    expect(orders).toEqual([order, order2]);
+    expect(orders).toStrictEqual([order, order2]);
   });
 
   it("should return an empty orders array if there is no orders created", async () => {
     const orders = await orderRepository.findAll();
-    expect(orders).toEqual([]);
+    expect(orders).toStrictEqual([]);
   });
 
+  it("should return an order by id", async () => {
+    const customer = new Customer("123", "Customer 1");
+    const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
+    customer.changeAddress(address);
+    await customerRepository.create(customer);
+
+    const product = new Product("123", "Product 1", 10);
+    await productRepository.create(product);
+
+    const orderItem = new OrderItem(
+      "1",
+      product.name,
+      product.price,
+      product.id,
+      2
+    );
+
+    const order = new Order("123", "123", [orderItem]);
+    await orderRepository.create(order);
+
+    const foundOrder = await orderRepository.find("123");
+    expect(foundOrder).toStrictEqual(order);
+  });
 });
