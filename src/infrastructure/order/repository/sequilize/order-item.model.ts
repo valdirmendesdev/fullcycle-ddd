@@ -26,6 +26,7 @@ export default class OrderItemModel extends Model {
   @BelongsTo(() => ProductModel)
   declare product: ProductModel;
 
+  @PrimaryKey
   @ForeignKey(() => OrderModel)
   @Column({ allowNull: false })
   declare order_id: string;
