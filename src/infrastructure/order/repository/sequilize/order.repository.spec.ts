@@ -209,4 +209,36 @@ describe("Order repository test", () => {
     });
   });
 
+  it("should return all orders", async () => {
+    const customer = new Customer("123", "Customer 1");
+    const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
+    customer.changeAddress(address);
+    await customerRepository.create(customer);
+
+    const product = new Product("123", "Product 1", 10);
+    await productRepository.create(product);
+
+    const orderItem = new OrderItem(
+      "1",
+      product.name,
+      product.price,
+      product.id,
+      2
+    );
+
+    const order = new Order("123", "123", [orderItem]);
+    await orderRepository.create(order);
+
+    const order2 = new Order("456", "123", [orderItem]);
+    await orderRepository.create(order2);
+
+    const orders = await orderRepository.findAll();
+    expect(orders).toEqual([order, order2]);
+  });
+
+  it("should return an empty orders array if there is no orders created", async () => {
+    const orders = await orderRepository.findAll();
+    expect(orders).toEqual([]);
+  });
+
 });
