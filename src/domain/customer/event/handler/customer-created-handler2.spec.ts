@@ -1,11 +1,11 @@
-import SendToConsoleLog2Handler from './send-to-console-log-2-handler';
+import CustomerCreatedEventHandler2 from './customer-created-handler2';
 describe("Customer Created Event Handler 1", () => {
   let consoleSpy: any;
-  let handler: SendToConsoleLog2Handler;
+  let handler: CustomerCreatedEventHandler2;
 
   beforeEach(() => {
     consoleSpy = jest.spyOn(console, 'log')
-    handler = new SendToConsoleLog2Handler();
+    handler = new CustomerCreatedEventHandler2();
   })
 
   it("should print message when handler 2 is called", () => {
