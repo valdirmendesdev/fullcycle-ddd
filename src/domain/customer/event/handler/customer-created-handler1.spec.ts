@@ -11,7 +11,10 @@ describe("Customer Created Event Handler 1", () => {
   it("should print message when handler is called", () => {
     handler.handle({
       dataTimeOccurred: new Date(),
-      eventData: {}
+      eventData: {
+        id: "customerId",
+        name: "customerName"
+      }
     });
     expect(consoleSpy).toHaveBeenCalledWith(
       'Esse é o primeiro console.log do evento: CustomerCreated'
