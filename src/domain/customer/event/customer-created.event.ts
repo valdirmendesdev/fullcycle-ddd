@@ -2,8 +2,7 @@ import EventInterface from "../../@shared/event/event.interface";
 
 export interface CustomerCreatedEventData {
   id: string,
-  name: string,
-  address: string,
+  name: string
 }
 
 export default class CustomerCreatedEvent implements EventInterface {
